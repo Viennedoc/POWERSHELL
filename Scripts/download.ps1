@@ -19,7 +19,7 @@ if ($response.statuscode -eq '200') {
     if (!(Test-Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d")) {
         New-Item -ItemType Directory -Force -Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d"
     } elseif (!(Test-Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\General.conf")) {
-        Remove-Item "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\*" -Recurse -Force
+        Remove-Item "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\*.conf" -Recurse -Force
     }
     
     foreach ($LOOP_CONF in $CONF) {
@@ -33,7 +33,8 @@ if ($response.statuscode -eq '200') {
     if ($RESTART -eq '1') {
         Restart-Service "Zabbix Agent 2" -Force | Out-Null
     }
-    $keyValue= ConvertFrom-Json $response.Content | Select-Object -expand "sha"
+    $keyValue = "Viennedoc:"
+    $keyValue += ConvertFrom-Json $response.Content | Select-Object -expand "sha"
     Write-Output $keyValue
 }
 else {
