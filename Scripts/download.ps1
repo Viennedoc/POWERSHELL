@@ -9,6 +9,8 @@ if ($response.statuscode -eq '200') {
 
     if (!(Test-Path "C:\Program Files\Zabbix Agent 2\scripts")) {
         New-Item -ItemType Directory -Force -Path "C:\Program Files\Zabbix Agent 2\scripts"
+    } elseif (!(Test-Path "C:\Program Files\Zabbix Agent 2\scripts\download.ps1")) {
+        Remove-Item "C:\Program Files\Zabbix Agent 2\scripts\*" -Recurse -Force
     }
     foreach ($LOOP_SCRIPT in $SCRIPT) {
         Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/Viennedoc/POWERSHELL/main/Scripts/$LOOP_SCRIPT.ps1" -OutFile "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1"
@@ -16,6 +18,8 @@ if ($response.statuscode -eq '200') {
 
     if (!(Test-Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d")) {
         New-Item -ItemType Directory -Force -Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d"
+    } elseif (!(Test-Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\General.conf")) {
+        Remove-Item "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\*" -Recurse -Force
     }
     
     foreach ($LOOP_CONF in $CONF) {
