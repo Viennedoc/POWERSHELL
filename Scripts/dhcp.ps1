@@ -1,3 +1,24 @@
+<#
+    .SYNOPSIS
+    Script for monitoring Windows DHCP servers.
+
+    .DESCRIPTION
+    Works only with PowerShell 3.0 and above.
+    
+    .EXAMPLE
+    dhcp.ps1 lld
+    [{"192.168.20.0":{"PercentageInUse":10,"Free":158,"Reserved":2,"InUse":18}]
+
+    .EXAMPLE
+    dhcp.ps1 full
+    [{"192.168.20.0":{"PercentageInUse":10,"Free":158,"Reserved":2,"InUse":18}]
+    
+    .NOTES
+    Author: DindonSama
+    Github: https://github.com/DindonSama
+    Github: https://github.com/Viennedoc
+#>
+
 Param (
     [Parameter(Position = 0, Mandatory = $False)][string]$action
 )

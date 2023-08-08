@@ -8,22 +8,17 @@
 
     Works only with PowerShell 3.0 and above.
     
-    .PARAMETER action
-    What we want to do - make LLD or get full JSON with metrics.
-
-    .PARAMETER version
-    Print verion number and exit.
-
     .EXAMPLE
     hyperv.ps1 lld
-    {"data":[{"{#VM.NAME}":"Windows 10 MSIX packaging environment","{#VM.VERSION}":"11.0","{#VM.CLUSTERED}":0,"{#VM.HOST}":"SERVEUR","{#VM.GEN}":2,"{#VM.ISREPLICA}":0,"{#VM.NOTES}":""}]}
+    {"data":[{"{#VM.NAME}":"VM_WINDOWS","{#VM.VERSION}":"11.0","{#VM.CLUSTERED}":0,"{#VM.HOST}":"SERVEUR","{#VM.GEN}":2,"{#VM.ISREPLICA}":0,"{#VM.NOTES}":""}]}
 
     .EXAMPLE
     hyperv.ps1 full
-    {"Windows 10 MSIX packaging environment":{"NumaSockets":1,"ReplMode":0,"CritErrAction":1,"IntSvcState":2,"ReplHealth":0,"State":3,"ReplState":0,"NumaNodes":1,"CPUUsage":0,"IntSvcVer":"0.0","StartAction":3,"IsClustered":0,"Uptime":0,"Memory":0,"StopAction":3}}
+    {"VM_WINDOWS":{"NumaNodes":1,"ReplHealth":0,"State":3,"StartAction":3,"CritErrAction":1,"CPUUsage":0,"ReplMode":0,"IntSvcState":2,"ReplState":0,"Uptime":0.0,"Memory":0,"IsClustered":0,"NumaSockets":1,"IntSvcVer":"0.0","StopAction":3}}
     
     .NOTES
-    Author: Dindon_Sama
+    Author: DindonSama
+    Github: https://github.com/DindonSama
     Github: https://github.com/Viennedoc
 #>
 

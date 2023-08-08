@@ -1,3 +1,20 @@
+<#
+    .SYNOPSIS
+    Script for autodiscover feature for Windows servers.
+
+    .DESCRIPTION
+    Works only with Windows Serveur PowerShell 3.0 and above.
+    
+    .EXAMPLE
+    Feature.ps1 
+    Viennedoc:59d6e27314eed30d17e98a9d4cbdafdc1465e41a
+
+    .NOTES
+    Author: DindonSama
+    Github: https://github.com/DindonSama
+    Github: https://github.com/Viennedoc
+#>
+
 Param (
     [Parameter(Position = 0, Mandatory = $False)][string]$Feature
 )

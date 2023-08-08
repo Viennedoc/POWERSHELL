@@ -1,3 +1,21 @@
+<#
+    .SYNOPSIS
+    Script for update Scripts and Conf.
+    Returns the hash from the github repo
+
+    .DESCRIPTION
+    Works only with PowerShell 3.0 and above.
+    
+    .EXAMPLE
+    download.ps1 
+    Viennedoc:59d6e27314eed30d17e98a9d4cbdafdc1465e41a
+
+    .NOTES
+    Author: DindonSama
+    Github: https://github.com/DindonSama
+    Github: https://github.com/Viennedoc
+#>
+
 $SCRIPT = @('AD','dhcp','download','Feature','hyperv')
 $CONF = @('General')
 

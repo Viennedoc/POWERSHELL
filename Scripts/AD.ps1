@@ -1,3 +1,24 @@
+<#
+    .SYNOPSIS
+    Script for monitoring AD servers.
+
+    .DESCRIPTION
+    Works only with PowerShell 3.0 and above.
+    
+    .EXAMPLE
+    ad.ps1 lld
+    #TO_DO
+
+    .EXAMPLE
+    ad.ps1 full
+    [{"AD":{"ADComputerInactif":{"WIN-LRZE1":{"lastlogondate":"05/27/2021 13:47:18","name":"WIN-LRZE1","canonicalname":"AT.LAN/Computers/WIN-LRZE1"},"administrateur8":{"lastlogondate":"02/20/2018 16:14:56","name":"admin_resa","canonicalname":"AT.LAN/Computers/admin_resa"}},"AT.LAN":{"DomainMode":"Windows2016Domain","Forest":"AT.LAN","Name":"AT"},"ADUserInactif":{"test2":{"Date":"22-09-2017","Name":"test2","SamAccountName":"test2"},"test":{"Date":"22-09-2017","Name":"Test","SamAccountName":"test"}}}}]
+    
+    .NOTES
+    Author: DindonSama
+    Github: https://github.com/DindonSama
+    Github: https://github.com/Viennedoc
+#>
+
 Param (
     [Parameter(Position = 0, Mandatory = $False)][string]$action
 )
