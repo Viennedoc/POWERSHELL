@@ -1,3 +1,16 @@
+<#
+    .SYNOPSIS
+    Script for Update Zabbix agent.
+
+    .DESCRIPTION
+    Nothing special.
+    
+    .NOTES
+    Author: DindonSama
+    Github: https://github.com/DindonSama
+    Github: https://github.com/Viennedoc
+#>
+
 $a=(Select-String -Pattern '^Server=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
 $b=(Select-String -Pattern '^ServerActive=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
 $c=(Select-String -Pattern '^Hostname=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
