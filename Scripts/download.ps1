@@ -16,7 +16,7 @@
     Github: https://github.com/Viennedoc
 #>
 
-$SCRIPT = @('AD','dhcp','download','Feature','hyperv')
+$SCRIPT = @('AD','dhcp','download','Feature','hyperv','VM')
 $CONF = @('General')
 
 [Net.ServicePointManager]::SecurityProtocol = [net.SecurityProtocolType]::Tls12
