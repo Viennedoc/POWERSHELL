@@ -43,18 +43,28 @@ function lld {
         $Object | Add-Member -type NoteProperty -Name "{#DHCP.PERCENTAGEINUSE}" -Value $item.PercentageInUse
         $Object | Add-Member -type NoteProperty -Name "{#DHCP.RESERVED}" -Value $item.Reserved
     
+        $query2 = Get-DhcpServerv4Scope -ScopeId $item.ScopeId
+        $Object | Add-Member -type NoteProperty -Name "{#DHCP.START}" -Value $query2.StartRange.IPAddressToString
+        $Object | Add-Member -type NoteProperty -Name "{#DHCP.END}" -Value $query2.EndRange.IPAddressToString
+        $Object | Add-Member -type NoteProperty -Name "{#DHCP.MASK}" -Value $query2.SubnetMask.IPAddressToString
+        $Object | Add-Member -type NoteProperty -Name "{#DHCP.LEASEDURATION}" -Value $query2.LeaseDuration.TotalSeconds
+
         $to_json += $Object        
     }
-
     return ConvertTo-Json -Compress -InputObject @($to_json)
 }
 
 function full {
     $query | foreach-object {
+        $query2 = Get-DhcpServerv4Scope -ScopeId $_.ScopeId
         $data = [psobject]@{"Free"            = [int]$_.Free;
                             "InUse"           = [int]$_.InUse;
                             "PercentageInUse" = [int]$_.PercentageInUse;
-                            "Reserved"        = [int]$_.Reserved
+                            "Reserved"        = [int]$_.Reserved;
+                            "RangeStart"      = [string]$query2.StartRange.IPAddressToString;
+                            "RangeEnd"        = [string]$query2.EndRange.IPAddressToString;
+                            "RangeMask"       = [string]$query2.SubnetMask.IPAddressToString;
+                            "LeaseDuration"   = [int]$query2.LeaseDuration.TotalSeconds
         }
         $to_json += @{[string]$_.ScopeId = $data }
     }
