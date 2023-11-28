@@ -85,16 +85,24 @@ function F2 {
 
 function F3 {
     $to_json = $null
+    $currentDate = Get-Date
 
-    $ADUserExpired = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "msDS-UserPasswordExpiryTimeComputed" | Select-Object -Property "name",@{Name="ExpiryDate";Expression={[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed")}}
-        
+    $users = Get-ADUser -Filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "msDS-UserPasswordExpiryTimeComputed" | 
+        Select-Object -Property "Name", @{
+            Name = "ExpiryDate"
+            Expression = {[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed")}
+        }
+    $ADUserExpired = $users | Where-Object { $_.ExpiryDate -lt $currentDate }
+
     $ADUserExpired | foreach-object {
-        $data = [psobject]@{"Name"     = [string]$_.Name;
-                            "ExpiryDate"      = [string]$_.ExpiryDate
+        $formattedDate = $_.ExpiryDate.ToString("dd/MM/yyyy HH:mm:ss")
+        $data = [psobject]@{
+            "Name" = [string]$_.Name
+            "ExpiryDate" = $formattedDate
         }
         $to_json += @{[string]$_.Name = $data }
     }
-
+    
     return ConvertTo-Json -InputObject $to_json -Compress
     
 }
