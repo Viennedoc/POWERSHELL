@@ -83,6 +83,22 @@ function F2 {
     return ConvertTo-Json -InputObject $to_json -Compress
 }
 
+function F3 {
+    $to_json = $null
+
+    $ADUserExpired = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} –Properties "Name", "msDS-UserPasswordExpiryTimeComputed" | Select-Object -Property "name",@{Name="ExpiryDate";Expression={[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed")}}
+        
+    $ADUserExpired | foreach-object {
+        $data = [psobject]@{"Name"     = [string]$_.Name;
+                            "ExpiryDate"      = [string]$_.ExpiryDate
+        }
+        $to_json += @{[string]$_.Name = $data }
+    }
+
+    return ConvertTo-Json -InputObject $to_json -Compress
+    
+}
+
 function full {
     $to_json = $null
 
@@ -98,6 +114,8 @@ function full {
     $to_json += @{ADUserInactif = $temp_F1 }
     $temp_F2 = ConvertFrom-Json -InputObject $(F2)
     $to_json += @{ADComputerInactif = $temp_F2 }
+    $temp_F3 = ConvertFrom-Json -InputObject $(F3)
+    $to_json += @{ADUserExpired = $temp_F3 }
 
     return ConvertTo-Json -InputObject $to_json -Compress
 }
