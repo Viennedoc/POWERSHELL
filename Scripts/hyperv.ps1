@@ -61,8 +61,6 @@ function Get-FullJSON() {
     Get-VM | ForEach-Object {
         $vm_data = [psobject]@{"State" = [int]$_.State;
                                "Uptime" = [math]::Round($_.Uptime.TotalSeconds);
-                               "NumaNodes" = $_.NumaNodesCount;
-                               "NumaSockets" = $_.NumaSocketCount;
                                "IntSvcVer" = [string]$_.IntegrationServicesVersion;
                                "IntSvcState" = $integrationSvcState[$_.IntegrationServicesState];
                                "CPUUsage" = $_.CPUUsage;
