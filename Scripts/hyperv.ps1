@@ -66,6 +66,7 @@ function Get-FullJSON() {
                                "IntSvcVer" = [string]$_.IntegrationServicesVersion;
                                "IntSvcState" = $integrationSvcState[$_.IntegrationServicesState];
                                "CPUUsage" = $_.CPUUsage;
+                               "ProcessorCount" = $_.ProcessorCount;
                                "Memory" = $_.MemoryAssigned;
                                "ReplMode" = [int]$_.ReplicationMode;
                                "ReplState" = [int]$_.ReplicationState;
