@@ -28,6 +28,7 @@ Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.0/7.0.0/zabbi
 msiexec.exe /i 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi' /log 'C:\Program Files\Zabbix Agent 2\zabbix_agent_install.log' /quiet
 
 Start-Sleep 20
+Restart-Service -Name 'Zabbix Agent 2'
 Remove-Item 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
 Remove-Item 'C:\Program Files\Zabbix Agent 2\zabbix_agent_install.txt'
 Unregister-ScheduledTask -TaskName "ZABBIXUP" -Confirm:$False
