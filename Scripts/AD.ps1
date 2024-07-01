@@ -95,7 +95,11 @@ function F3 {
     $ADUserExpired = $users | Where-Object { $_.ExpiryDate -lt $currentDate }
 
     $ADUserExpired | foreach-object {
-        $formattedDate = $_.ExpiryDate.ToString("dd/MM/yyyy HH:mm:ss")
+        if ($ADUserExpired.ExpiryDate = $null) {
+            $formattedDate = "00/00/00 00:00:00"
+        } else {
+            $formattedDate = $_.ExpiryDate.ToString("dd/MM/yyyy HH:mm:ss")
+        }
         $data = [psobject]@{
             "Name" = [string]$_.Name
             "ExpiryDate" = $formattedDate
