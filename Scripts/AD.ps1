@@ -98,7 +98,7 @@ function F3 {
         if ($ADUserExpired.ExpiryDate -eq $null) {
             $formattedDate = "00/00/00 00:00:00"
         } else {
-            $formattedDate = $formattedDate.ExpiryDate.ToString("dd/MM/yyyy HH:mm:ss")
+            $formattedDate = $ADUserExpired.ExpiryDate.ToString("dd/MM/yyyy HH:mm:ss")
         }
         $data = [psobject]@{
             "Name" = [string]$_.Name
