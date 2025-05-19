@@ -16,14 +16,14 @@ $b=(Select-String -Pattern '^ServerActive=' -Path 'C:\Program Files\Zabbix Agent
 $c=(Select-String -Pattern '^Hostname=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
 $d=(Select-String -Pattern '^HostMetadata=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
 $v=(Select-String -Pattern '^TLSPSKIdentity=' -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf').line
-$e="$a`n$b`n$c`n$d`nLogFile=C:\Program Files\Zabbix Agent 2\zabbix_agent2.log`nTimeout=30`nInclude=C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\`nControlSocket=\\.\pipe\agent.sock`nTLSConnect=psk`nTLSAccept=psk`n`n$v`nTLSPSKFile=C:\Program Files\Zabbix Agent 2\psk.key`nAllowKey=system.run[*]`nInclude=.\zabbix_agent2.d\plugins.d\*.conf`n"
+$e="$a`n$b`n$c`n$d`nForceActiveChecksOnStart=1`nLogFile=C:\Program Files\Zabbix Agent 2\zabbix_agent2.log`nTimeout=30`nInclude=C:\Program Files\Zabbix Agent 2\zabbix_agent2.d\`nControlSocket=\\.\pipe\agent.sock`nTLSConnect=psk`nTLSAccept=psk`n`n$v`nTLSPSKFile=C:\Program Files\Zabbix Agent 2\psk.key`nAllowKey=system.run[*]`nInclude=.\zabbix_agent2.d\plugins.d\*.conf`n"
 Out-File -Encoding ASCII -InputObject $e -FilePath 'C:\Program Files\Zabbix Agent 2\zabbix_agent2_new.conf'
 
 Move-Item -force -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2_new.conf' -Destination 'C:\Program Files\Zabbix Agent 2\zabbix_agent2.conf'
 
 #Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/6.4/6.4.12/zabbix_agent2-6.4.12-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
 
-Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.0/7.0.0/zabbix_agent2-7.0.0-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
+Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.2/latest/zabbix_agent-7.2-latest-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
 
 msiexec.exe /i 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi' /log 'C:\Program Files\Zabbix Agent 2\zabbix_agent_install.log' /quiet
 
