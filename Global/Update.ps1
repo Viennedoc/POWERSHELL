@@ -23,7 +23,8 @@ Copy-Item -force -Path 'C:\Program Files\Zabbix Agent 2\zabbix_agent2_new.conf' 
 
 #Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/6.4/6.4.12/zabbix_agent2-6.4.12-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
 
-Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.2/latest/zabbix_agent2-7.2-latest-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
+#Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.2/latest/zabbix_agent2-7.2-latest-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
+Invoke-WebRequest 'https://cdn.zabbix.com/zabbix/binaries/stable/7.4/latest/zabbix_agent2-7.4-latest-windows-amd64-openssl.msi' -OutFile 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi'
 
 #msiexec.exe /i 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi' /log 'C:\Program Files\Zabbix Agent 2\zabbix_agent_install.log' /quiet
 Start-Process -FilePath 'C:\Program Files\Zabbix Agent 2\zabbix_agent2-X.X.X-windows-amd64-openssl.msi' -ArgumentList "/qn $a $b $c" -wait
