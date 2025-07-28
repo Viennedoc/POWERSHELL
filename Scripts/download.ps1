@@ -30,11 +30,32 @@ if ($response.statuscode -eq '200') {
     } elseif (!(Test-Path "C:\Program Files\Zabbix Agent 2\scripts\download.ps1")) {
         Remove-Item "C:\Program Files\Zabbix Agent 2\scripts\*" -Recurse -Force
     }
+
     foreach ($LOOP_SCRIPT in $SCRIPT) {
         if ($LOOP_SCRIPT -ne 'download') {
             Get-Process | Where-Object { $_.Path -eq "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1" } | Stop-Process
         }
-        Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/Viennedoc/POWERSHELL/main/Scripts/$LOOP_SCRIPT.ps1" -OutFile "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1"
+
+        $url = "https://raw.githubusercontent.com/Viennedoc/POWERSHELL/main/Scripts/$LOOP_SCRIPT.ps1"
+        $outfile = "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1"
+        
+        $maxRetries = 3
+        $attempt = 0
+        $success = $false
+
+        while (-not $success -and $attempt -lt $maxRetries) {
+            try {
+                Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outfile -ErrorAction Stop
+                $success = $true
+            } catch {
+                $attempt++
+                if ($attempt -lt $maxRetries) {
+                    Start-Sleep -Seconds 1
+                } else {
+                    Write-Warning "Échec du téléchargement de $LOOP_SCRIPT.ps1 après $maxRetries tentatives."
+                }
+            }
+        }
     }
 
     if (!(Test-Path "C:\Program Files\Zabbix Agent 2\zabbix_agent2.d")) {
