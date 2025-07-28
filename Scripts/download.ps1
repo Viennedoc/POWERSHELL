@@ -31,6 +31,9 @@ if ($response.statuscode -eq '200') {
         Remove-Item "C:\Program Files\Zabbix Agent 2\scripts\*" -Recurse -Force
     }
     foreach ($LOOP_SCRIPT in $SCRIPT) {
+        if ($LOOP_SCRIPT -ne 'download') {
+            Get-Process | Where-Object { $_.Path -eq "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1" } | Stop-Process
+        }
         Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/Viennedoc/POWERSHELL/main/Scripts/$LOOP_SCRIPT.ps1" -OutFile "C:\Program Files\Zabbix Agent 2\scripts\$LOOP_SCRIPT.ps1"
     }
 
