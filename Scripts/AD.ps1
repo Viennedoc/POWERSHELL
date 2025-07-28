@@ -49,7 +49,7 @@ function lld {
 }
 
 function F1 {
-    $to_json = $null
+    $to_json = @{}
     $InactiveDays = 90
     $Days = (Get-Date).Adddays(-($InactiveDays))
 
@@ -66,7 +66,7 @@ function F1 {
     return ConvertTo-Json -InputObject $to_json -Compress
 }
 function F2 {
-    $to_json = $null
+    $to_json = @{}
     $InactiveDays = 90
     $Days = (Get-Date).Adddays(-($InactiveDays))
 
@@ -84,7 +84,7 @@ function F2 {
 }
 
 function F3 {
-    $to_json = $null
+    $to_json = @{}
     $currentDate = Get-Date
 
     $users = Get-ADUser -Filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} -Properties "Name", "msDS-UserPasswordExpiryTimeComputed" | 
@@ -122,12 +122,24 @@ function full {
         $to_json += @{[string]$_.Forest = $data }
     }
 
-    $temp_F1 = ConvertFrom-Json -InputObject $(F1)
-    $to_json += @{ADUserInactif = $temp_F1 }
-    $temp_F2 = ConvertFrom-Json -InputObject $(F2)
-    $to_json += @{ADComputerInactif = $temp_F2 }
-    $temp_F3 = ConvertFrom-Json -InputObject $(F3)
-    $to_json += @{ADUserExpired = $temp_F3 }
+
+    $json_F1 = F1
+    if ($json_F1) {
+        $temp_F1 = ConvertFrom-Json -InputObject $json_F1
+        $to_json += @{ADUserInactif = $temp_F1 }
+    }
+    
+    $json_F2 = F2
+    if ($json_F2) {
+        $temp_F2 = ConvertFrom-Json -InputObject $json_F2
+        $to_json += @{ADComputerInactif = $temp_F2 }
+    }
+    
+    $json_F3 = F3
+    if ($json_F3) {
+        $temp_F3 = ConvertFrom-Json -InputObject $json_F3
+        $to_json += @{ADUserExpired = $temp_F3 }
+    }
 
     return ConvertTo-Json -InputObject $to_json -Compress
 }
